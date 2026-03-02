@@ -1,0 +1,102 @@
+---
+title: "Deep Dive: Root Cause Analysis in Enterprise Java Systems"
+date: "2025-10-15"
+description: "A methodical approach to diagnosing and fixing complex, hard-to-reproduce bugs in large enterprise Java applications — lessons from working with Japanese enterprise clients."
+tags: ["Java", "Root Cause Analysis", "Debugging", "Enterprise", "FPT Software"]
+---
+
+# Deep Dive: Root Cause Analysis in Enterprise Java Systems
+
+Enterprise Java systems are often large, stateful, and highly concurrent. When something goes wrong in production — intermittent NullPointerExceptions, thread-safety issues, mysterious data corruption — the hardest part isn't the fix. It's understanding exactly what happened and why.
+
+Here's the methodology I developed while investigating complex bugs for enterprise clients.
+
+## The RCA Mindset
+
+Root cause analysis is fundamentally a scientific process:
+1. Observe the symptom
+2. Form hypotheses
+3. Design experiments to test hypotheses
+4. Eliminate possibilities systematically
+5. Identify the root cause (not just the proximate cause)
+
+The mistake most engineers make is stopping at the **proximate cause** — the line of code that threw the exception — without asking why that condition was even possible.
+
+## Tool 1: Thread Dump Analysis
+
+For concurrency bugs, thread dumps are invaluable. When a system appears to hang or behave erratically:
+
+```bash
+kill -3 <PID>  # send SIGQUIT to print thread dump to stdout
+# Or use:
+jstack <PID> > thread_dump.txt
+```
+
+What to look for:
+- **BLOCKED** threads waiting on a monitor held by another thread → possible deadlock
+- **WAITING** threads in a queue that never empties → possible starvation
+- Thread stacks that all point to the same lock → hot lock contention
+
+**Real example:** An enterprise batch job was randomly hanging every few hours. Thread dump showed 40 threads all BLOCKED waiting for a single synchronized HashMap. Fix: replaced with `ConcurrentHashMap` and eliminated the contention completely.
+
+## Tool 2: Heap Analysis with MAT
+
+Memory leaks in long-running enterprise apps require heap dump analysis:
+
+```bash
+jmap -dump:format=b,file=heap_dump.hprof <PID>
+# Then open in Eclipse Memory Analyzer (MAT)
+```
+
+Key patterns to look for:
+- **Dominator tree:** What objects are holding most of the heap?
+- **Leak suspects report:** Objects that grew unexpectedly
+- **Reference chains:** What's holding a reference to the leaked object?
+
+## Tool 3: Correlation-Based Log Analysis
+
+When bugs are intermittent and not reproducible locally, production logs are your only data source. The strategy:
+
+1. Identify the error timestamp with millisecond precision
+2. Aggregate logs from all service instances within ±30 seconds
+3. Look for anomalies that pre-date the error — slow queries, unusual input patterns, GC pauses
+4. Correlate with deployment history, traffic spikes, or infrastructure events
+
+```sql
+-- Example: find slow queries within 60 seconds of an error
+SELECT query_text, duration_ms, executed_at
+FROM query_log
+WHERE executed_at BETWEEN '2025-03-15 14:29:00' AND '2025-03-15 14:30:00'
+  AND duration_ms > 1000
+ORDER BY duration_ms DESC;
+```
+
+## The "Five Whys" Applied to Code
+
+For a real enterprise bug: a Japanese client's financial report was occasionally showing incorrect totals.
+
+- **Why?** Subtotal calculation returned wrong number.
+- **Why?** The subtotal was calculated before all async updates were flushed.
+- **Why?** The report generation was triggered by an event that could fire before database writes completed.
+- **Why?** The event was published in the same transaction as the write, but before commit.
+- **Root cause:** `ApplicationEventPublisher.publishEvent()` was called inside `@Transactional` before the transaction committed, triggering report generation on stale data.
+
+**Fix:** Move event publishing to a `@TransactionalEventListener(phase = AFTER_COMMIT)`.
+
+## Documentation: The Overlooked Step
+
+Every RCA should produce a written document with:
+1. **Timeline of the incident**
+2. **Exact root cause** (with code reference)
+3. **Impact assessment** (who was affected, how long)
+4. **Fix implemented**
+5. **Preventive measures** (how to detect this class of bug earlier)
+
+This documentation becomes institutional knowledge — the next engineer who sees a similar symptom has a reference point.
+
+## Key Takeaways
+
+1. Don't patch symptoms. Find root causes through systematic elimination.
+2. Thread dumps and heap analysis are non-negotiable tools for JVM debugging.
+3. Time-correlation is often the key to intermittent bugs.
+4. Document everything. Tribal knowledge doesn't scale.

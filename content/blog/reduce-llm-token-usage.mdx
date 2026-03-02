@@ -1,0 +1,86 @@
+---
+title: "How I Reduced LLM Token Usage by 44% in Production"
+date: "2025-12-10"
+description: "A deep-dive into the exact techniques used to cut token consumption from 850 to 480 tokens per request — without sacrificing output quality."
+tags: ["LLM", "Token Optimization", "Production AI", "GPT-4"]
+---
+
+# How I Reduced LLM Token Usage by 44% in Production
+
+When you build AI systems at scale, token cost stops being an abstract number and becomes a real operational expense that compounds with every user request. Here's exactly how I cut token usage by 44% — from 850 to 480 tokens per request — in a production multimodal storytelling pipeline.
+
+## The Problem
+
+We had a mobile app generating multimodal stories: text, image prompts, and audio scripts for each scene. The initial implementation worked. But as we projected user growth, the token bill didn't look sustainable.
+
+**Initial state:**
+- Average prompt: ~850 tokens per scene request
+- Story length: 6–14 scenes
+- Multiple story types, each with unique generation requirements
+
+## The Audit: Where Were Tokens Going?
+
+The first step was instrumenting the pipeline to log every prompt going to GPT-4o. Three categories emerged:
+
+1. **Overly verbose system prompts** — detailed instructions repeated across every call
+2. **Redundant context** — the full story background re-sent on every scene
+3. **Free-form output** — asking for prose when JSON was needed, resulting in padding tokens
+
+## Technique 1: Compact Prompt Templates
+
+Instead of writing prompts conversationally, I rewrote them using a compressed instruction style:
+
+**Before (verbose):**
+```
+You are an expert children's story writer. Please create a compelling and age-appropriate
+scene for a children's story. The scene should be visually descriptive to help an
+illustrator understand what to draw. Make sure the text is engaging for children
+aged 6-12...
+```
+
+**After (compact):**
+```
+Role: children's story writer.
+Task: generate scene JSON for story.
+Age: 6-12. Style: vivid, short sentences.
+```
+
+Savings: ~120 tokens per request on system prompt alone.
+
+## Technique 2: Structured Output Design
+
+I switched from asking GPT-4o to "write a scene description" (free-form prose) to requesting a strict JSON schema with `response_format: { type: "json_object" }`.
+
+```json
+{
+  "scene_text": "string (max 80 words)",
+  "image_prompt": "string (max 30 words)",
+  "audio_script": "string (max 60 words)",
+  "scene_mood": "happy|tense|calm|exciting"
+}
+```
+
+This eliminated filler tokens like "Certainly! Here's the scene..." and kept output deterministic and parse-safe.
+
+Savings: ~80 tokens per request in output tokens.
+
+## Technique 3: Differential Context Passing
+
+Instead of re-sending the full story context (title, characters, setting) on every scene request, I created a compressed story fingerprint — a 2-sentence summary that GPT-4o uses as grounding context.
+
+**Full context (old):** 180 tokens  
+**Fingerprint (new):** 40 tokens  
+
+Savings: ~140 tokens per request.
+
+## Result
+
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| Avg tokens/request | 850 | 480 | **-44%** |
+| Output quality (human eval) | baseline | equal | no regression |
+| Monthly projected cost | $X | $0.56X | **-44%** |
+
+## Key Takeaway
+
+Token optimization isn't about being clever — it's about eliminating waste. Audit your prompts token by token, enforce structured output, and stop resending context that can be summarized. The savings compound fast.

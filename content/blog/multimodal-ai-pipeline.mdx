@@ -1,0 +1,107 @@
+---
+title: "Designing a Multimodal AI Pipeline (Text, Image, Audio)"
+date: "2025-11-22"
+description: "How to architect a production pipeline that generates text, images, and audio concurrently — with streaming delivery and async workers."
+tags: ["Multimodal AI", "System Design", "FastAPI", "Async Python", "Vertex AI"]
+---
+
+# Designing a Multimodal AI Pipeline (Text, Image, Audio)
+
+Building a system that generates text, images, and audio for each scene of a story is architecturally very different from a simple chatbot. This post walks through the design decisions that took our pipeline from a slow sequential generator to a fast, concurrent, streaming system.
+
+## The Naive Architecture (And Why It Fails)
+
+The first version was sequential:
+
+```
+Request → GPT-4o (text) → Imagen (image) → Cloud TTS (audio) → Response
+```
+
+This worked perfectly in local testing. In production, with 8–14 scenes per story, it was catastrophically slow. Total generation time: **3–4 minutes**. Unusable for a mobile app.
+
+## The Core Insight: Decouple Text and Media
+
+The key architectural insight was that **text and media have fundamentally different latency profiles and user value**:
+
+- Text: ~3–5s per scene, immediately readable by users
+- Images: ~8–12s per scene, visually enriching but not immediate
+- Audio: ~4–6s, enhances immersion but secondary to text
+
+Users can start reading text immediately. They don't need to wait for the image to render or audio to load. This insight drove the streaming-first strategy.
+
+## Architecture: The Production Design
+
+```
+User Request
+    │
+    ▼
+FastAPI Router
+    │
+    ├──► Scene Planner (GPT-4o w/ JSON)
+    │         │
+    │         └──► Story metadata + 6-14 scene templates
+    │
+    ├──► Async Text Workers [x5 concurrent]
+    │         │
+    │         └──► GPT-4o per scene → stream text to client
+    │
+    └──► Background Media Workers
+              ├──► Vertex Imagen per scene (concurrent)
+              └──► Cloud TTS per scene (concurrent)
+```
+
+## The Streaming Strategy
+
+Using FastAPI with `StreamingResponse` and `asyncio.Queue`:
+
+```python
+async def generate_story(request: StoryRequest):
+    queue = asyncio.Queue()
+
+    # Fire text generation immediately
+    asyncio.create_task(generate_scenes_text(request, queue))
+
+    # Start media in background (non-blocking)
+    asyncio.create_task(generate_scenes_media(request, queue))
+
+    async def event_generator():
+        while True:
+            event = await queue.get()
+            if event is None:
+                break
+            yield f"data: {json.dumps(event)}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+```
+
+The client receives text scene-by-scene within seconds, while images and audio arrive progressively in the background.
+
+## Concurrency: 5 Scenes at a Time
+
+Naive sequential scene generation compounds latency. With `asyncio.gather`, we generate 5 scenes concurrently:
+
+```python
+async def generate_scenes_text(request, queue):
+    semaphore = asyncio.Semaphore(5)  # max 5 concurrent GPT calls
+
+    async def generate_scene(scene_idx):
+        async with semaphore:
+            result = await call_gpt4o(request, scene_idx)
+            await queue.put({"type": "scene_text", "idx": scene_idx, **result})
+
+    await asyncio.gather(*[generate_scene(i) for i in range(request.scene_count)])
+```
+
+## Results
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Total gen time | 3–4 min | ~36s |
+| Time to first text | 3–4 min | ~8s |
+| Perceived UX | Very poor | Excellent |
+
+## Key Lessons
+
+1. **Streaming is a product decision first, then an engineering one.** Decide what users see first and architect backward.
+2. **Concurrency is not free** — rate limits, cost, and error propagation all get more complex. Use semaphores.
+3. **Decouple modalities.** Text, image, and audio pipelines should fail independently.
