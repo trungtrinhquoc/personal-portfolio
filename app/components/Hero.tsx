@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Download, ArrowRight, Check } from 'lucide-react'
+import { Github, Download, ArrowRight, Check, Eye } from 'lucide-react'
 import Image from 'next/image'
 import avatarImage from '../public/avatar.jpg'
 
@@ -45,7 +45,7 @@ export default function Hero() {
             />
 
             {/* Content */}
-            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 w-full">
+            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
                     {/* ── Left: Text column ── */}
@@ -112,16 +112,31 @@ export default function Hero() {
                                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
                             </motion.button>
 
-                            <motion.a
-                                href="/cv.pdf"
-                                download
-                                className="flex items-center gap-2 px-6 py-3 border border-indigo-500/30 text-gray-300 text-sm font-semibold rounded-xl hover:border-indigo-400/60 hover:bg-indigo-500/5 transition-all duration-200"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
-                            >
-                                <Download size={14} className="text-indigo-400" />
-                                Download CV
-                            </motion.a>
+                            {/* CV split button */}
+                            <div className="flex items-stretch rounded-xl border border-indigo-500/30 overflow-hidden hover:border-indigo-400/50 transition-colors duration-200">
+                                <motion.a
+                                    href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-5 py-3 text-gray-300 text-sm font-semibold hover:bg-indigo-500/8 transition-colors duration-200"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.97 }}
+                                >
+                                    <Eye size={14} className="text-indigo-400" />
+                                    View CV
+                                </motion.a>
+                                <div className="w-px bg-indigo-500/25 my-2" />
+                                <motion.a
+                                    href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
+                                    download
+                                    title="Download CV"
+                                    className="flex items-center justify-center px-3.5 text-gray-500 hover:text-indigo-400 hover:bg-indigo-500/8 transition-colors duration-200"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.97 }}
+                                >
+                                    <Download size={13} />
+                                </motion.a>
+                            </div>
 
                             <motion.a
                                 href="https://github.com/trungtrinhquoc"
@@ -183,7 +198,7 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.6, duration: 0.8 }}
-                    className="flex justify-center mt-14"
+                    className="flex justify-center mt-10"
                 >
                     <motion.div
                         animate={{ y: [0, 8, 0] }}

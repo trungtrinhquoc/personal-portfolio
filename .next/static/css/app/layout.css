@@ -603,6 +603,10 @@ video {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
+.my-2{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .-mt-1{
   margin-top: -0.25rem;
 }
@@ -680,6 +684,9 @@ video {
 }
 .mt-\[5px\]{
   margin-top: 5px;
+}
+.mt-10{
+  margin-top: 2.5rem;
 }
 .line-clamp-3{
   overflow: hidden;
@@ -928,6 +935,9 @@ video {
 }
 .items-center{
   align-items: center;
+}
+.items-stretch{
+  align-items: stretch;
 }
 .justify-center{
   justify-content: center;
@@ -1205,8 +1215,8 @@ video {
 .bg-indigo-500\/10{
   background-color: rgb(99 102 241 / 0.1);
 }
-.bg-indigo-500\/15{
-  background-color: rgb(99 102 241 / 0.15);
+.bg-indigo-500\/25{
+  background-color: rgb(99 102 241 / 0.25);
 }
 .bg-indigo-500\/5{
   background-color: rgb(99 102 241 / 0.05);
@@ -1421,8 +1431,8 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.pb-16{
-  padding-bottom: 4rem;
+.pb-10{
+  padding-bottom: 2.5rem;
 }
 .pb-20{
   padding-bottom: 5rem;
@@ -1435,6 +1445,9 @@ video {
 }
 .pt-1{
   padding-top: 0.25rem;
+}
+.pt-20{
+  padding-top: 5rem;
 }
 .pt-24{
   padding-top: 6rem;
@@ -1863,21 +1876,21 @@ body {
 
 /* Section spacing */
 .section-padding {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
     .section-padding {
-        padding-top: 4rem;
-        padding-bottom: 4rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
     }
 }
 
 @media (min-width: 1024px) {
     .section-padding {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
     }
 }
 
@@ -1886,8 +1899,8 @@ body {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:border-indigo-400\/60:hover{
-  border-color: rgb(129 140 248 / 0.6);
+.hover\:border-indigo-400\/50:hover{
+  border-color: rgb(129 140 248 / 0.5);
 }
 
 .hover\:border-indigo-500\/35:hover{
@@ -1896,10 +1909,6 @@ body {
 
 .hover\:border-white\/20:hover{
   border-color: rgb(255 255 255 / 0.2);
-}
-
-.hover\:bg-indigo-500\/5:hover{
-  background-color: rgb(99 102 241 / 0.05);
 }
 
 .hover\:bg-white\/10:hover{
@@ -1996,6 +2005,10 @@ body {
 
   .sm\:mb-16{
     margin-bottom: 4rem;
+  }
+
+  .sm\:mb-10{
+    margin-bottom: 2.5rem;
   }
 
   .sm\:block{
@@ -2104,10 +2117,6 @@ body {
 
   .lg\:col-span-3{
     grid-column: span 3 / span 3;
-  }
-
-  .lg\:flex{
-    display: flex;
   }
 
   .lg\:grid-cols-2{

@@ -34,7 +34,7 @@ export default function Footer() {
                     </div>
 
                     <p className="text-xs text-gray-700 font-mono">
-                        © {new Date().getFullYear()} · Built with Next.js & TailwindCSS
+                        © {new Date().getFullYear()} Trung Trinh. All rights reserved.
                     </p>
                 </div>
             </div>

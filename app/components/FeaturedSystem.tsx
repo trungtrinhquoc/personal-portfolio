@@ -69,7 +69,7 @@ export default function FeaturedSystem() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
-                    className="mb-8 sm:mb-16"
+                    className="mb-8 sm:mb-10"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-mono uppercase tracking-widest mb-4">
                         Featured Case Study
