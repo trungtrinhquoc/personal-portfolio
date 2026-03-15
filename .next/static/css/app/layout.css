@@ -667,8 +667,8 @@ video {
 .mt-1\.5{
   margin-top: 0.375rem;
 }
-.mt-14{
-  margin-top: 3.5rem;
+.mt-10{
+  margin-top: 2.5rem;
 }
 .mt-16{
   margin-top: 4rem;
@@ -684,9 +684,6 @@ video {
 }
 .mt-\[5px\]{
   margin-top: 5px;
-}
-.mt-10{
-  margin-top: 2.5rem;
 }
 .line-clamp-3{
   overflow: hidden;
@@ -2002,10 +1999,6 @@ body {
 }
 
 @media (min-width: 640px){
-
-  .sm\:mb-16{
-    margin-bottom: 4rem;
-  }
 
   .sm\:mb-10{
     margin-bottom: 2.5rem;
