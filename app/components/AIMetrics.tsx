@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Activity, Zap, Clock } from 'lucide-react'
 
 const metrics = [
@@ -35,28 +34,26 @@ const metrics = [
 ]
 
 export default function AIMetrics() {
-    const ref = useRef(null)
-    const inView = useInView(ref, { once: true, margin: '-50px' })
-
     return (
-        <section className="section-padding bg-black/20 border-y border-white/5">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+        <section className="relative py-20 overflow-hidden bg-transparent border-y border-white/5">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.15 }}
                     transition={{ duration: 0.6 }}
-                    className="mb-14"
+                    className="mb-12 text-center sm:text-left"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-[#E5C07B]/30 rounded-full mb-4">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#E5C07B] animate-pulse"></span>
-                        <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest">Production Impact</span>
+                    <div className="inline-flex items-center gap-2 mb-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#E5C07B] animate-pulse" />
+                        <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest font-semibold">Production Impact</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif italic text-white tracking-tight mb-3">
+                    <h2 className="text-2xl sm:text-3xl font-serif italic text-white tracking-tight mb-2">
                         Measurable Results
                     </h2>
-                    <p className="text-gray-400 font-light text-sm sm:text-base">
-                        Real numbers from production systems — not just benchmarks.
+                    <p className="text-zinc-400 font-light text-xs sm:text-sm">
+                        Real performance optimization metrics from deployed production systems.
                     </p>
                 </motion.div>
 
@@ -66,37 +63,39 @@ export default function AIMetrics() {
                         return (
                             <motion.div
                                 key={m.title}
-                                initial={{ opacity: 0, x: -30 }}
-                                animate={inView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ duration: 0.5, delay: i * 0.15 }}
-                                className="glass-card p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 group hover:border-[#E5C07B]/30 transition-all"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: false, amount: 0.15 }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                className="p-5 sm:p-6 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#E5C07B]/40 transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 group shadow-xl"
                             >
-                                <div className="flex items-center gap-5 md:w-1/3">
-                                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 group-hover:text-[#E5C07B] transition-colors flex-shrink-0">
-                                        <Icon size={20} />
+                                <div className="flex items-center gap-4 md:w-1/3">
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-[#E5C07B] transition-colors flex-shrink-0">
+                                        <Icon size={18} />
                                     </div>
                                     <div>
-                                        <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">{m.category}</div>
-                                        <div className="text-white font-semibold">{m.title}</div>
+                                        <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest mb-0.5">{m.category}</div>
+                                        <div className="text-white text-sm font-semibold">{m.title}</div>
                                     </div>
                                 </div>
 
-                                <div className="w-full md:w-1/3 flex items-center gap-4">
-                                    <div className="flex-1 h-1.5 bg-black/40 rounded-full overflow-hidden border border-white/5">
+                                <div className="w-full md:w-1/3 flex items-center gap-3">
+                                    <div className="flex-1 h-1.5 bg-black/50 rounded-full overflow-hidden border border-white/5">
                                         <motion.div
                                             initial={{ width: 0 }}
-                                            animate={inView ? { width: `${m.progress}%` } : {}}
-                                            transition={{ duration: 1.5, delay: 0.5 + i * 0.2, ease: "easeOut" }}
+                                            whileInView={{ width: `${m.progress}%` }}
+                                            viewport={{ once: false, amount: 0.15 }}
+                                            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
                                             className="h-full bg-gradient-to-r from-yellow-700 via-[#E5C07B] to-yellow-200"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between md:justify-end gap-6 md:w-1/3 w-full">
-                                    <div className="text-xs font-mono text-gray-500 text-right">
-                                        {m.before} → <strong className="text-gray-300 font-mono">{m.after}</strong>
+                                <div className="flex items-center justify-between md:justify-end gap-5 md:w-1/3 w-full">
+                                    <div className="text-[11px] font-mono text-zinc-400 text-right">
+                                        {m.before} → <strong className="text-white font-mono">{m.after}</strong>
                                     </div>
-                                    <div className="text-3xl font-bold font-serif italic text-white group-hover:text-[#E5C07B] transition-colors">
+                                    <div className="text-2xl font-bold font-serif italic text-white group-hover:text-[#E5C07B] transition-colors">
                                         {m.percentage}
                                     </div>
                                 </div>
@@ -105,14 +104,9 @@ export default function AIMetrics() {
                     })}
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={inView ? { opacity: 1 } : {}}
-                    transition={{ delay: 1.5 }}
-                    className="mt-6 text-[11px] font-mono text-gray-600 tracking-widest uppercase"
-                >
-                    * Measured on internal production systems • 2024-2025
-                </motion.div>
+                <div className="mt-6 text-[10px] font-mono text-zinc-500 tracking-widest uppercase text-center sm:text-left">
+                    * Measured on internal production systems • 2025-2026
+                </div>
             </div>
         </section>
     )

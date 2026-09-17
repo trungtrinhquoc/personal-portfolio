@@ -36,9 +36,12 @@ body {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     background-image:
-        radial-gradient(at 0% 0%, rgba(229, 192, 123, 0.03) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(229, 192, 123, 0.03) 0px, transparent 50%);
+        linear-gradient(180deg, rgba(10, 10, 10, 0.86) 0%, rgba(10, 10, 10, 0.92) 50%, rgba(10, 10, 10, 0.88) 100%),
+        url('/portfolio-bg.png');
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .font-serif {
