@@ -1,0 +1,48 @@
+TRINH QUOC TRUNG
+Email: trinhquoctrung10504@gmail.com | Mobile: 0865498733 | Linkedin: trungtrinh10504 | Github: trungtrinhquoc
+FPT University
+Bachelor of Information Technology | Specialization: Software Engineering
+September 2022 - September 2026
+EDUCATION
+PERSONAL PROJECTS
+FUOJT – OJT Management Ecosystem                  AI Engineer                      
+Technologies: C# .NET 9, PostgreSQL, Gemini API, JavaScript/HTML/CSS, TypeScript
+Combined basic format checks with Gemini API to automatically evaluate candidate suitability based on skills and job
+requirements
+Built a Multimodal LLM pipeline that parses raw text and PDF/Word to extract structured fields and autofill job posting
+forms.
+Designed and optimized domain-specific prompts to guide LLMs in generating accurate candidate evaluations and
+strict JSON responses.
+SKILLS
+Programming Languages: comfortable with Python(FastAPI), OpenCV, YOLO, Numpy; Solid in Java (familiar with
+Spring MVC); basic in TypeScript/JavaScript, HTML, CSS.
+Database: Firebase, PostgreSQL(Supabase), MySQL, SQL Server
+Tools: VSCode, Cursor, IntelliJ IDEA, Git, Github
+AI Engineer 
+CERTIFICATIONS
+Databases and SQL for Data Science with Python
+WORK EXPERIENCE
+Open Web Technology Vietnam             AI Engineer Intern                                August 2025 - March 2026
+Built production AI storytelling pipeline for mobile app, orchestrating GPT-4o (text), Vertex AI Imagen (images), and
+Cloud TTS (audio) to generate personalized children's stories.
+Integrated a multimodal AI pipeline (text → image → audio) while maintaining consistent character design across 6–14
+scene story sequences.
+Token Optimization: Reduced consumption 44% (850→480 tokens) via compact prompt templates and structured
+output design
+Reduced generation latency 27% (49s→36s) by generating 5 scenes concurrently in Python with async workers
+progressive result streaming
+Improved user experience by reducing Time-to-Interaction 60% (20s→8s) by delivering text first while multimedia
+generated in the background
+Mini RAG System                                                     AI Engineer                      
+Technologies: Python, FastAPI, OpenAI API, FAISS, Hugging Face
+Built a complete RAG pipeline using FastAPI as the backend, OpenAI embeddings to vectorise document chunks,
+FAISS for fast nearest-neighbour retrieval, and GPT-4o to synthesise final answers from retrieved context.
+PDF ingestion → text extraction → chunk splitting, Embedding generation via OpenAI text, Vector storage and similarity
+search with FAISS, Top-k = 5 chunks passed as context into GPT-4o prompt.
+GPA: 8.2/10 
+Awarded 30% Academic Scholarship
+Dräxlmaier Automotive Vietnam             AI Engineer                                          June 2026 - present
+Develop internal automation tools and scripts in Python to streamline daily manufacturing and engineering workflows.
+Build and deploy computer vision and image processing solutions to detect visual defects and anomalies on industrial
+products.
+Implement robust error-handling, data processing pipelines, and logical checks to maintain high production accuracy.

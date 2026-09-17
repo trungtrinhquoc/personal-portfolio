@@ -2,209 +2,113 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import {
-    AlertCircle,
-    ChevronDown,
-    Layers,
-    Zap,
-    GitBranch,
-    PlayCircle,
-} from 'lucide-react'
-
-const archFlow = [
-    { label: 'User', sublabel: '(Mobile App)', color: 'border-gray-600 bg-gray-800/60', textColor: 'text-gray-200' },
-    { label: 'FastAPI', sublabel: 'Validation & Routing', color: 'border-indigo-500/50 bg-indigo-500/10', textColor: 'text-indigo-300' },
-    { label: 'GPT-4o', sublabel: 'Structured JSON Output', color: 'border-violet-500/50 bg-violet-500/10', textColor: 'text-violet-300' },
-    { label: 'Async Workers', sublabel: '5 scenes concurrently', color: 'border-blue-500/50 bg-blue-500/10', textColor: 'text-blue-300' },
-    { label: 'Vertex Imagen', sublabel: 'Image generation', color: 'border-emerald-500/50 bg-emerald-500/10', textColor: 'text-emerald-300' },
-    { label: 'Cloud TTS', sublabel: 'Audio synthesis', color: 'border-amber-500/50 bg-amber-500/10', textColor: 'text-amber-300' },
-    { label: 'Progressive Streaming', sublabel: 'Delivered to client', color: 'border-indigo-500/50 bg-indigo-500/10', textColor: 'text-indigo-300' },
-]
-
-const engineeringDecisions = [
-    {
-        icon: <Zap size={18} />,
-        title: 'Token Optimization',
-        items: ['Compact prompt templates', 'Structured output design'],
-        color: 'text-indigo-400',
-        bg: 'bg-indigo-500/10',
-        border: 'border-indigo-500/20',
-    },
-    {
-        icon: <GitBranch size={18} />,
-        title: 'Concurrency',
-        items: ['Async Python workers', 'Generate 5 scenes concurrently'],
-        color: 'text-violet-400',
-        bg: 'bg-violet-500/10',
-        border: 'border-violet-500/20',
-    },
-    {
-        icon: <PlayCircle size={18} />,
-        title: 'Streaming Strategy',
-        items: ['Deliver text first', 'Multimedia generated in background'],
-        color: 'text-blue-400',
-        bg: 'bg-blue-500/10',
-        border: 'border-blue-500/20',
-    },
-]
-
-const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: { delay: i * 0.1, duration: 0.55, ease: 'easeOut' },
-    }),
-}
+import { AlertCircle, GitMerge, Zap } from 'lucide-react'
 
 export default function FeaturedSystem() {
     const ref = useRef(null)
-    const inView = useInView(ref, { once: true, margin: '-80px' })
+    const inView = useInView(ref, { once: true, margin: '-50px' })
+
+    const flowSteps = [
+        { title: 'User (Mobile App)', desc: 'Initiates request' },
+        { title: 'FastAPI Validation & Routing', desc: 'Async task queue' },
+        { title: 'GPT-4o', desc: 'Structured JSON Output' },
+        { title: 'Parallel Execution', desc: 'Vertex AI Imagen + Cloud TTS' },
+    ]
 
     return (
-        <section id="featured-system" className="section-padding">
+        <section className="section-padding">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
-                {/* Section header */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
-                    className="mb-8 sm:mb-10"
+                    className="mb-14"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-mono uppercase tracking-widest mb-4">
-                        Featured Case Study
-                    </div>
-                    <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-100 tracking-tight mb-4">
-                        Production AI Storytelling Pipeline
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight mb-3">
+                        Production AI <span className="font-serif italic text-gradient-gold">Storytelling Pipeline</span>
                     </h2>
-                    <p className="text-gray-400 text-base sm:text-lg max-w-3xl">
-                        A multimodal generation system powering a mobile application — from problem to architecture to measurable impact.
+                    <p className="text-gray-400 font-light text-sm sm:text-base max-w-2xl">
+                        A multimodal generation system powering a mobile application — from challenging problem constraints to a scalable architectural solution.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                    {/* Left column: Problem + Engineering Decisions */}
-                    <div className="space-y-8">
-                        {/* Problem */}
-                        <motion.div
-                            custom={0}
-                            variants={fadeUp}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
-                            className="rounded-2xl bg-[#111827] border border-indigo-500/20 p-5 sm:p-7"
-                        >
-                            <div className="flex items-center gap-3 mb-5">
-                                <div className="p-2 rounded-lg bg-red-500/10 border border-red-500/20">
-                                    <AlertCircle size={18} className="text-red-400" />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-100">The Problem</h3>
-                            </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                            <div className="mb-5">
-                                <p className="text-gray-400 text-sm leading-relaxed mb-3">
-                                    Mobile app needed to generate <span className="text-gray-200 font-medium">text, image, and audio</span> for stories spanning{' '}
-                                    <span className="text-gray-200 font-medium">6–14 scenes each</span> — synchronously:
-                                </p>
-                                <div className="space-y-2">
-                                    {[
-                                        'High token cost per request',
-                                        'High end-to-end generation latency',
-                                        'Slow user interaction (20s+ wait)',
-                                    ].map((issue) => (
-                                        <div key={issue} className="flex items-start gap-2 text-sm text-red-400">
-                                            <span className="mt-0.5 text-red-500 font-bold">×</span>
-                                            <span>{issue}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                    {/* Left Column */}
+                    <div className="lg:col-span-5 flex flex-col gap-6">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={inView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="glass-card p-6 border-l-2 border-l-red-900/50 hover:border-l-red-500/50"
+                        >
+                            <div className="flex items-center gap-3 mb-4">
+                                <AlertCircle size={18} className="text-red-400" />
+                                <h3 className="font-semibold text-white">The Problem</h3>
                             </div>
+                            <p className="text-sm text-gray-400 font-light leading-relaxed mb-4">
+                                The mobile app needed to synchronously generate <strong className="text-gray-200 font-medium">text, image, and audio</strong> for personalized stories spanning 6–14 scenes each. The initial approach faced massive bottlenecks:
+                            </p>
+                            <ul className="space-y-2 text-sm text-red-200/50 font-light">
+                                <li className="flex items-center gap-2"><span className="text-red-500">×</span> High token cost per request</li>
+                                <li className="flex items-center gap-2"><span className="text-red-500">×</span> High end-to-end generation latency</li>
+                                <li className="flex items-center gap-2"><span className="text-red-500">×</span> Slow user interaction (20s+ wait)</li>
+                            </ul>
                         </motion.div>
 
-                        {/* Engineering Decisions */}
                         <motion.div
-                            custom={1}
-                            variants={fadeUp}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
-                            className="rounded-2xl bg-[#111827] border border-indigo-500/20 p-5 sm:p-7"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={inView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="glass-card p-6 border-l-2 border-l-[#E5C07B]/30 hover:border-l-[#E5C07B]"
                         >
-                            <div className="flex items-center gap-3 mb-5">
-                                <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-                                    <Layers size={18} className="text-indigo-400" />
-                                </div>
-                                <h3 className="text-lg font-bold text-gray-100">Engineering Decisions</h3>
+                            <div className="flex items-center gap-3 mb-4">
+                                <Zap size={18} className="text-[#E5C07B]" />
+                                <h3 className="font-semibold text-white">Engineering Decisions</h3>
                             </div>
-
-                            <div className="grid grid-cols-1 gap-4">
-                                {engineeringDecisions.map((dec) => (
-                                    <div
-                                        key={dec.title}
-                                        className={`rounded-xl p-4 ${dec.bg} border ${dec.border}`}
-                                    >
-                                        <div className={`flex items-center gap-2 ${dec.color} font-semibold text-sm mb-2`}>
-                                            {dec.icon}
-                                            {dec.title}
-                                        </div>
-                                        <ul className="space-y-1">
-                                            {dec.items.map((item) => (
-                                                <li key={item} className="text-gray-400 text-xs flex items-center gap-1.5">
-                                                    <span className={`${dec.color} font-bold`}>→</span>
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                ))}
-                            </div>
+                            <p className="text-sm text-gray-400 font-light leading-relaxed mb-3">
+                                Migrated from a monolithic synchronous block to an <strong className="text-white">asynchronous, event-driven</strong> FastAPI worker model.
+                            </p>
+                            <p className="text-sm text-gray-400 font-light leading-relaxed">
+                                Used structured prompt templates (strict JSON schemas) to ensure LLM compliance without verbose retry penalties, and parallelized the Imagen/TTS external API calls.
+                            </p>
                         </motion.div>
                     </div>
 
-                    {/* Right column: Architecture */}
+                    {/* Right Column (Architecture Flow) */}
                     <motion.div
-                        custom={2}
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate={inView ? 'visible' : 'hidden'}
-                        className="rounded-2xl bg-[#111827] border border-indigo-500/20 p-5 sm:p-7 flex flex-col"
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        className="lg:col-span-7 glass-card p-8 lg:p-10"
                     >
-                        <div className="flex items-center gap-3 mb-7">
-                            <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
-                                <GitBranch size={18} className="text-indigo-400" />
-                            </div>
-                            <h3 className="text-lg font-bold text-gray-100">Architecture Flow</h3>
+                        <div className="flex items-center gap-3 mb-8">
+                            <GitMerge size={18} className="text-gray-500" />
+                            <h3 className="font-semibold text-white">Architecture Flow</h3>
                         </div>
 
-                        <div className="flex-1 flex flex-col items-center justify-center gap-0">
-                            {archFlow.map((node, idx) => (
-                                <div key={node.label} className="flex flex-col items-center w-full max-w-xs">
-                                    {/* Node box */}
+                        <div className="flex flex-col items-center">
+                            {flowSteps.map((step, idx) => (
+                                <div key={step.title} className="w-full flex flex-col items-center">
                                     <motion.div
-                                        initial={{ opacity: 0, scale: 0.9 }}
-                                        animate={inView ? { opacity: 1, scale: 1 } : {}}
-                                        transition={{ delay: 0.3 + idx * 0.08, duration: 0.4 }}
-                                        className={`w-full rounded-xl border px-4 py-3 text-center ${node.color}`}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                                        transition={{ duration: 0.4, delay: 0.4 + idx * 0.15 }}
+                                        className="w-full sm:w-[80%] bg-white/5 border border-white/10 rounded-xl p-4 text-center group hover:bg-[#E5C07B]/5 hover:border-[#E5C07B]/40 transition-colors"
                                     >
-                                        <div className={`font-bold text-sm ${node.textColor}`}>{node.label}</div>
-                                        <div className="text-xs text-gray-500 mt-0.5">{node.sublabel}</div>
+                                        <div className="font-semibold text-white group-hover:text-[#E5C07B] transition-colors">{step.title}</div>
+                                        <div className="text-xs text-gray-500 mt-1 font-mono uppercase tracking-widest">{step.desc}</div>
                                     </motion.div>
 
-                                    {/* Arrow connector (except after last) */}
-                                    {idx < archFlow.length - 1 && (
-                                        <motion.div
-                                            initial={{ opacity: 0, scaleY: 0 }}
-                                            animate={inView ? { opacity: 1, scaleY: 1 } : {}}
-                                            transition={{ delay: 0.38 + idx * 0.08, duration: 0.3 }}
-                                            className="flex flex-col items-center my-1"
-                                            style={{ originY: 0 }}
-                                        >
-                                            <div className="w-[1px] h-5 bg-gradient-to-b from-indigo-500/60 to-violet-500/30" />
-                                            <ChevronDown size={12} className="text-indigo-500/60 -mt-1" />
-                                        </motion.div>
+                                    {idx < flowSteps.length - 1 && (
+                                        <div className="h-6 w-px bg-gradient-to-b from-white/20 to-transparent my-1"></div>
                                     )}
                                 </div>
                             ))}
                         </div>
                     </motion.div>
+
                 </div>
             </div>
         </section>

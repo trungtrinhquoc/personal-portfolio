@@ -1,216 +1,125 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Download, ArrowRight, Check, Eye } from 'lucide-react'
+import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react'
 import Image from 'next/image'
 import avatarImage from '../public/avatar.jpg'
 
 export default function Hero() {
     return (
-        <section
-            id="hero"
-            className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        >
-            {/* Background blobs */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2.5 }}
-                    className="absolute -top-20 left-1/4 w-[700px] h-[700px] rounded-full"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)',
-                        filter: 'blur(90px)',
-                    }}
-                />
-                <motion.div
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 65%)',
-                        filter: 'blur(70px)',
-                    }}
-                />
+        <section id="hero" className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+            {/* Elegant abstract neural background pattern */}
+            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-screen flex items-center justify-center">
+                {/* CSS wave emulation overlapping circles */}
+                <div className="absolute w-[60vw] h-[60vw] rounded-full border border-[#E5C07B]/40 blur-[4px] -right-[10vw]" />
+                <div className="absolute w-[45vw] h-[45vw] rounded-full border border-[#E5C07B]/20 blur-[2px] right-[5vw]" />
+                <div className="absolute w-[30vw] h-[30vw] rounded-full border border-[#E5C07B]/10 right-[15vw]" />
+                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-r from-[#0a0a0a] via-transparent to-transparent z-10" />
             </div>
 
-            {/* Subtle grid */}
-            <div
-                className="absolute inset-0 opacity-[0.022]"
-                style={{
-                    backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
-                    backgroundSize: '60px 60px',
-                }}
-            />
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-            {/* Content */}
-            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-                    {/* ── Left: Text column ── */}
+                    {/* ── Left Content (Typographic Focus) ── */}
                     <motion.div
-                        initial={{ opacity: 0, y: 24 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.75, ease: 'easeOut' }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-7 flex flex-col justify-center"
                     >
-                        {/* Status badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] text-emerald-300 text-xs font-mono mb-7">
-                            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                            Open to AI Engineer roles
+                        <div className="inline-flex items-center gap-2 text-[#E5C07B] font-medium tracking-wide mb-6">
+                            👋 <span className="text-[15px]">Hi there! I&apos;m Trung Trinh</span>
                         </div>
 
-                        {/* Name */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.1] mb-5">
-                            <span className="text-white">Trinh Quoc Trung</span>
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-1">
+                            AI / ML
                         </h1>
+                        <h2 className="text-3xl sm:text-4xl lg:text-[3.5rem] text-gradient-gold font-serif italic mb-6">
+                            Engineer
+                        </h2>
 
-                        {/* Role chips */}
-                        <div className="flex items-center gap-2.5 flex-wrap mb-5">
-                            <span className="text-xs font-mono text-indigo-300 tracking-widest uppercase px-3 py-1 rounded-full border border-indigo-500/35 bg-indigo-500/10">
-                                AI Engineer
-                            </span>
-                            <span className="text-gray-600 text-xs">·</span>
-                            <span className="text-xs font-mono text-violet-300 tracking-widest uppercase px-3 py-1 rounded-full border border-violet-500/35 bg-violet-500/10">
-                                Backend Engineer
-                            </span>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-base sm:text-lg text-gray-400 leading-relaxed mb-6 max-w-[500px]">
-                            I build{' '}
-                            <span className="text-indigo-300 font-medium">production-grade AI pipelines</span>
-                            {' '}— RAG systems, LLM integrations, and scalable backend APIs
-                            that deliver real, measurable impact.
+                        <p className="text-sm sm:text-base text-[#a1a1aa] leading-relaxed max-w-[500px] mb-8 font-light">
+                            Passionate about building production-grade AI pipelines and intelligent systems. Specializing in <span className="text-white font-medium">Computer Vision</span>, <span className="text-white font-medium">LLM orchestration</span>, and backend architecture that drives measurable impact.
                         </p>
 
-                        {/* Key capabilities */}
-                        <ul className="space-y-2.5 mb-8">
-                            {[
-                                'RAG · Embeddings · Vector Search (FAISS)',
-                                'LLM pipelines: GPT-4o, LangChain, Prompt Engineering',
-                                'FastAPI · async workers · multimodal orchestration',
-                            ].map((item) => (
-                                <li key={item} className="flex items-start gap-2.5 text-sm text-gray-400">
-                                    <Check size={14} className="text-indigo-400 flex-shrink-0 mt-0.5" />
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-
-                        {/* CTAs */}
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap items-center gap-4">
                             <motion.button
-                                onClick={() =>
-                                    document.querySelector('#featured-system')?.scrollIntoView({ behavior: 'smooth' })
-                                }
-                                className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-violet-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200"
+                                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
                                 whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="flex items-center gap-2 px-7 py-3.5 bg-[#E5C07B] text-[#0a0a0a] font-semibold rounded-full shadow-[0_0_20px_rgba(229,192,123,0.3)] transition-all hover:shadow-[0_0_30px_rgba(229,192,123,0.5)]"
                             >
-                                View Projects
-                                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
+                                Let&apos;s Talk <ArrowRight size={16} />
                             </motion.button>
 
-                            {/* CV split button */}
-                            <div className="flex items-stretch rounded-xl border border-indigo-500/30 overflow-hidden hover:border-indigo-400/50 transition-colors duration-200">
-                                <motion.a
-                                    href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-5 py-3 text-gray-300 text-sm font-semibold hover:bg-indigo-500/8 transition-colors duration-200"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.97 }}
-                                >
-                                    <Eye size={14} className="text-indigo-400" />
-                                    View CV
-                                </motion.a>
-                                <div className="w-px bg-indigo-500/25 my-2" />
-                                <motion.a
-                                    href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
-                                    download
-                                    title="Download CV"
-                                    className="flex items-center justify-center px-3.5 text-gray-500 hover:text-indigo-400 hover:bg-indigo-500/8 transition-colors duration-200"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.97 }}
-                                >
-                                    <Download size={13} />
-                                </motion.a>
-                            </div>
-
                             <motion.a
-                                href="https://github.com/trungtrinhquoc"
+                                href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-5 py-3 border border-white/10 text-gray-500 text-sm font-semibold rounded-xl hover:border-white/20 hover:text-gray-300 transition-all duration-200"
                                 whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="flex items-center gap-2 px-7 py-3.5 border border-white/10 text-white font-medium rounded-full hover:border-[#E5C07B]/50 hover:bg-[#E5C07B]/5 transition-all"
                             >
-                                <Github size={15} />
-                                GitHub
+                                Download Resume <Download size={15} />
                             </motion.a>
                         </div>
                     </motion.div>
 
-                    {/* ── Right: Photo card ── */}
+                    {/* ── Right Content (Avatar & AI Vibe) ── */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, delay: 0.25, ease: 'easeOut' }}
-                        className="flex flex-col items-center justify-center"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-5 flex justify-center lg:justify-end py-10"
                     >
-                        <div
-                            className="relative w-72 h-72 xl:w-80 xl:h-80 rounded-3xl overflow-hidden"
-                            style={{
-                                boxShadow:
-                                    '0 0 0 1px rgba(99,102,241,0.15), 0 0 80px rgba(99,102,241,0.18), 0 24px 48px rgba(0,0,0,0.45)',
-                            }}
-                        >
-                            {/* Gradient background (shown when no photo) */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/60 via-[#111827] to-violet-900/40" />
-
-                            <Image
-                                src={avatarImage}
-                                alt="Trinh Quoc Trung"
-                                fill
-                                className="object-cover"
-                                priority
+                        <div className="relative">
+                            {/* Neural Vibe Decorator */}
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+                                className="absolute -inset-4 border border-[#E5C07B]/20 rounded-full border-dashed opacity-70"
+                            />
+                            <motion.div
+                                animate={{ rotate: -360 }}
+                                transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+                                className="absolute -inset-8 border border-[#E5C07B]/10 rounded-full border-dotted opacity-50"
                             />
 
-                            {/* Decorative border glow */}
-                            <div className="absolute inset-0 rounded-3xl ring-1 ring-indigo-500/20" />
-                        </div>
+                            {/* Main Avatar Card */}
+                            <div className="relative w-72 h-[380px] sm:w-[320px] sm:h-[420px] rounded-[30px] p-2 bg-[#121212] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-glow z-10 transition-all">
+                                <div className="absolute top-4 right-4 z-20 flex gap-2">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-[#E5C07B] animate-pulse shadow-[0_0_8px_#E5C07B]" />
+                                </div>
 
-                        {/* Name card below photo */}
-                        <div className="mt-4 text-center">
-                            <div className="text-sm font-semibold text-gray-300">Trinh Quoc Trung</div>
-                            <div className="text-xs font-mono text-indigo-400 mt-0.5">AI + Backend Engineer</div>
-                            <div className="flex items-center justify-center gap-1.5 mt-2">
-                                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                                <span className="text-[11px] text-gray-500">Available for hire</span>
+                                <div className="w-full h-full rounded-[24px] overflow-hidden relative transition-all duration-700 ease-in-out">
+                                    <Image
+                                        src={avatarImage}
+                                        alt="Trinh Quoc Trung"
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                    {/* Vignette overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
+                                </div>
+
+                                {/* Info block over avatar */}
+                                <div className="absolute bottom-6 left-6 right-6 backdrop-blur-md bg-black/40 border border-white/10 rounded-2xl p-4">
+                                    <div className="text-[#a1a1aa] text-[11px] uppercase tracking-widest font-bold font-mono mb-1">Based in</div>
+                                    <div className="text-white font-medium text-[15px] flex items-center justify-between">
+                                        Da Nang, Vietnam
+                                        <div className="flex gap-2">
+                                            <a href="https://github.com/trungtrinhquoc" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#E5C07B] transition-colors"><Github size={16} /></a>
+                                            <a href="https://linkedin.com/in/trungtrinh10504" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#E5C07B] transition-colors"><Linkedin size={16} /></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
-                </div>
 
-                {/* Scroll hint */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.6, duration: 0.8 }}
-                    className="flex justify-center mt-10"
-                >
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                        className="flex flex-col items-center gap-1.5 text-gray-700"
-                    >
-                        <span className="text-[10px] tracking-widest uppercase font-mono">Scroll</span>
-                        <div className="w-px h-7 bg-gradient-to-b from-gray-600 to-transparent" />
-                    </motion.div>
-                </motion.div>
+                </div>
             </div>
         </section>
     )
 }
-

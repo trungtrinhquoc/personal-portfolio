@@ -2,167 +2,104 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { MapPin, Calendar, Mail, Linkedin, Github, Code2, Brain, Server } from 'lucide-react'
+import { MapPin, Mail, Linkedin, Github, Monitor, Cog, Cpu } from 'lucide-react'
 
 const highlights = [
     {
-        icon: Brain,
-        title: 'AI Engineering',
-        desc: 'Designing and optimizing LLM-powered systems for production — from prompt engineering to fine-tuning and multimodal pipelines.',
+        icon: Cpu,
+        title: 'Core AI Systems',
+        desc: 'Engineering RAG pipelines, fine-tuning LLMs, and building robust Multimodal AI pipelines that scale efficiently in production environments.',
     },
     {
-        icon: Server,
-        title: 'Backend Engineering',
-        desc: 'Building scalable APIs, microservices, and data pipelines that power AI workloads at enterprise scale.',
+        icon: Monitor,
+        title: 'Computer Vision',
+        desc: 'Developing specialized CV applications with OpenCV and YOLO for high-accuracy industrial inspection and anomaly detection.',
     },
     {
-        icon: Code2,
-        title: 'Systems Thinking',
-        desc: 'Obsessed with root-cause analysis, latency reduction, and shipping solutions that are measurably better.',
+        icon: Cog,
+        title: 'Backend Architecture',
+        desc: 'Writing optimized async services using Python (FastAPI), C# .NET, and Java to serve intelligent endpoints effortlessly.',
     },
-]
-
-const tags = [
-    'Python', 'FastAPI', 'Java', 'Spring MVC',
-    'TypeScript', 'JavaScript', 'HTML/CSS',
-    'PostgreSQL', 'MySQL', 'SQL Server', 'Firebase',
-    'Git', 'OpenAI API', 'ASP.NET Core',
 ]
 
 export default function AboutMe() {
     const ref = useRef(null)
-    const inView = useInView(ref, { once: true, margin: '-80px' })
+    const inView = useInView(ref, { once: true, margin: '-50px' })
 
     return (
-        <section id="about" className="section-padding">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header */}
-                <motion.div
-                    ref={ref}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5 }}
-                    className="mb-12"
-                >
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono uppercase tracking-widest mb-3">
-                        About
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-100 tracking-tight">
-                        Who I am
-                    </h2>
-                </motion.div>
+        <section id="about" className="section-padding overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-                    {/* Left — personal card */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+                    {/* Left Intro Card */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                        ref={ref}
+                        initial={{ opacity: 0, x: -30 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="lg:col-span-2 flex flex-col gap-5"
+                        transition={{ duration: 0.6 }}
+                        className="lg:col-span-5 flex flex-col gap-5 glass-card p-8 lg:p-10"
                     >
-                        {/* Avatar / initials */}
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/20">
-                            T
+                        <div className="flex items-center gap-2 mb-2">
+                            <div className="w-1.5 h-1.5 bg-[#E5C07B] rounded-full"></div>
+                            <span className="text-xs font-mono text-[#E5C07B] uppercase tracking-widest">About Me</span>
                         </div>
 
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-100 mb-0.5">Trinh Quoc Trung</h3>
-                            <p className="text-sm font-mono text-indigo-400">AI Engineer &amp; Backend Engineer</p>
-                        </div>
+                        <h2 className="text-2xl sm:text-3xl font-serif italic text-white mb-2">My Philosophy</h2>
 
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                            Final-year Software Engineering student at FPT University, building AI-powered and backend systems.
-                            I care about writing code that{' '}
-                            <span className="text-gray-300 font-medium">actually runs well in production</span>
-                            {' '}— not just passing tests.
+                        <p className="text-gray-300 leading-relaxed font-light mt-2 text-sm sm:text-base">
+                            I am a Software Engineering student at <strong className="text-white font-medium">FPT University</strong> (September 2022 - September 2026). My core focus lies at the intersection of powerful AI models and reliable software architecture.
                         </p>
 
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                            Currently focusing on LLM integrations, prompt engineering, and full-stack development.
-                            Comfortable in Python and Java, learning fast in everything else.
+                        <p className="text-gray-400 leading-relaxed font-light mt-1 mb-4 text-sm sm:text-base">
+                            Beyond just running experiments or writing notebooks, I build <strong className="text-gray-200">real-world, end-to-end intelligent systems</strong>. I care deeply about prompt optimization, latency reduction, and delivering measurable enterprise value.
                         </p>
 
-                        {/* Meta info */}
-                        <div className="flex flex-col gap-2 pt-1">
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <MapPin size={12} className="text-indigo-400 flex-shrink-0" />
-                                <span>Danang - Vietnam</span>
+                        <div className="flex flex-col gap-3 pt-6 border-t border-white/5">
+                            <div className="flex items-center gap-3 text-sm text-gray-400">
+                                <MapPin size={16} className="text-[#E5C07B]" />
+                                Da Nang, Vietnam (Open to Remote)
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <Mail size={12} className="text-indigo-400 flex-shrink-0" />
-                                <a href="mailto:trinhquoctrung10504@gmail.com" className="hover:text-indigo-400 transition-colors duration-150 truncate">
-                                    trinhquoctrung10504@gmail.com
-                                </a>
+                            <div className="flex items-center gap-3 text-sm text-gray-400">
+                                <Mail size={16} className="text-[#E5C07B]" />
+                                <a href="mailto:trinhquoctrung@gmail.com" className="hover:text-white transition-colors">trinhquoctrung@gmail.com</a>
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <Linkedin size={12} className="text-indigo-400 flex-shrink-0" />
-                                <a href="https://linkedin.com/in/trungtrinh10504" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors duration-150">
-                                    linkedin.com/in/trungtrinh10504
-                                </a>
+                            <div className="flex items-center gap-3 text-sm text-gray-400 mt-2">
+                                <a href="https://linkedin.com/in/trungtrinh10504" className="flex items-center gap-2 text-gray-400 hover:text-white"><Linkedin size={15} /> LinkedIn</a>
+                                <span className="opacity-30">•</span>
+                                <a href="https://github.com/trungtrinhquoc" className="flex items-center gap-2 text-gray-400 hover:text-white"><Github size={15} /> GitHub</a>
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <Github size={12} className="text-indigo-400 flex-shrink-0" />
-                                <a href="https://github.com/trungtrinhquoc" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors duration-150">
-                                    github.com/trungtrinhquoc
-                                </a>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <Calendar size={12} className="text-indigo-400 flex-shrink-0" />
-                                <span>Open to opportunities</span>
-                                <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                            </div>
-                        </div>
-
-                        {/* Tech tags */}
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                            {tags.map((tag) => (
-                                <span key={tag} className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/[0.12] text-gray-300">
-                                    {tag}
-                                </span>
-                            ))}
                         </div>
                     </motion.div>
 
-                    {/* Right — highlights */}
+                    {/* Right Highlights */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 0, x: 30 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="lg:col-span-3 flex flex-col gap-4"
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="lg:col-span-7 flex flex-col justify-center gap-6"
                     >
+                        <h3 className="text-xl font-bold text-white mb-2">Engineering Capabilities</h3>
+
                         {highlights.map((item, i) => {
                             const Icon = item.icon
                             return (
                                 <motion.div
                                     key={item.title}
-                                    initial={{ opacity: 0, y: 16 }}
+                                    initial={{ opacity: 0, y: 15 }}
                                     animate={inView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.45, delay: 0.25 + i * 0.1 }}
-                                    className="flex gap-4 p-4 rounded-xl border border-white/[0.10] bg-white/[0.025] hover:bg-white/[0.04] transition-colors duration-200"
+                                    transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                                    className="flex gap-5 group"
                                 >
-                                    <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-300">
-                                        <Icon size={16} />
+                                    <div className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-gray-300 group-hover:border-[#E5C07B]/40 group-hover:text-[#E5C07B] transition-colors flex-shrink-0">
+                                        <Icon size={20} />
                                     </div>
-                                    <div>
-                                        <div className="text-sm font-semibold text-gray-200 mb-1">{item.title}</div>
-                                        <div className="text-sm text-gray-500 leading-relaxed">{item.desc}</div>
+                                    <div className="flex flex-col gap-1.5">
+                                        <h4 className="text-lg font-semibold text-gray-100">{item.title}</h4>
+                                        <p className="text-sm text-gray-400 leading-relaxed font-light max-w-lg">{item.desc}</p>
                                     </div>
                                 </motion.div>
                             )
                         })}
-
-                        {/* Quote */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={inView ? { opacity: 1 } : {}}
-                            transition={{ delay: 0.6, duration: 0.5 }}
-                            className="mt-2 px-4 py-3.5 rounded-xl border border-indigo-500/25 bg-indigo-500/[0.08]"
-                        >
-                            <p className="text-sm text-gray-300 leading-relaxed italic">
-                                "I build things to understand them — and then make them faster."
-                            </p>
-                            <p className="text-xs text-gray-600 font-mono mt-1.5">— engineering mindset</p>
-                        </motion.div>
                     </motion.div>
                 </div>
             </div>
