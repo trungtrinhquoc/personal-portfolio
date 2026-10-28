@@ -5,19 +5,19 @@ import { MapPin, Mail, Linkedin, Github, Cpu, Eye, Server, GraduationCap } from 
 
 const capabilities = [
     {
-        icon: Cpu,
-        title: 'Multimodal AI & LLM Systems',
-        desc: 'Building production AI pipelines (Text → Image → Audio) with GPT-4o, Vertex AI, and Cloud TTS. Expert in prompt optimization (-44% tokens) and latency reduction.',
+        icon: Eye,
+        title: 'Industrial Computer Vision & Edge AI',
+        desc: 'Developing PySide6 desktop AI vision systems with OpenCV (SIFT + RANSAC Homography) and deploying YOLOv8 via ONNX Runtime (~12ms/frame on CPU).',
     },
     {
-        icon: Eye,
-        title: 'Industrial Computer Vision',
-        desc: 'Developing specialized CV defect detection and anomaly inspection applications with Python, OpenCV, and YOLO in automotive manufacturing.',
+        icon: Cpu,
+        title: 'Multimodal AI & LLM Systems',
+        desc: 'Building production AI pipelines (GPT-4o, Gemini API, Vertex AI, Cloud TTS) with strict JSON schemas, prompt optimization (-44% tokens), and latency engineering.',
     },
     {
         icon: Server,
         title: 'Backend Engineering & RAG',
-        desc: 'Engineering high-performance async backends with Python (FastAPI), C# .NET 9, and Java. Building RAG search engines with FAISS and PostgreSQL.',
+        desc: 'Engineering high-performance async backends with FastAPI and C# .NET 9. Building vector retrieval-augmented generation (RAG) engines with FAISS and PostgreSQL.',
     },
 ]
 

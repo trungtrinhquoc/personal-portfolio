@@ -49,7 +49,7 @@ export default function RootLayout({
                     rel="stylesheet"
                 />
             </head>
-            <body className="bg-[#0F172A] text-gray-100 antialiased overflow-x-hidden" suppressHydrationWarning>
+            <body className="bg-[#0a0a0a] text-gray-100 antialiased overflow-x-hidden" suppressHydrationWarning>
                 {children}
             </body>
         </html>

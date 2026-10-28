@@ -47,31 +47,56 @@ export default function Education() {
                         </div>
                     </motion.div>
 
-                    {/* Certifications */}
+                    {/* Certifications & Languages */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false, amount: 0.15 }}
                         transition={{ duration: 0.6, delay: 0.15 }}
-                        className="p-6 sm:p-8 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#E5C07B]/40 transition-all duration-300 shadow-xl flex flex-col justify-center"
+                        className="p-6 sm:p-8 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#E5C07B]/40 transition-all duration-300 shadow-xl flex flex-col justify-between"
                     >
-                        <div className="flex items-center gap-2 mb-3">
-                            <span className="w-1.5 h-1.5 bg-[#E5C07B] rounded-full animate-pulse" />
-                            <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest font-semibold">Certifications</span>
-                        </div>
-                        <div className="space-y-3">
-                            {certs.map((c) => (
-                                <div
-                                    key={c.name}
-                                    className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between group hover:border-[#E5C07B]/40 transition-colors"
-                                >
-                                    <div>
-                                        <div className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors">{c.name}</div>
-                                        <div className="text-[10px] font-mono text-zinc-400 mt-0.5">{c.issuer}</div>
+                        <div>
+                            <div className="flex items-center gap-2 mb-3">
+                                <span className="w-1.5 h-1.5 bg-[#E5C07B] rounded-full animate-pulse" />
+                                <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest font-semibold">Certifications</span>
+                            </div>
+                            <div className="space-y-2 mb-5">
+                                {certs.map((c) => (
+                                    <div
+                                        key={c.name}
+                                        className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between group hover:border-[#E5C07B]/40 transition-colors"
+                                    >
+                                        <div>
+                                            <div className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors">{c.name}</div>
+                                            <div className="text-[10px] font-mono text-zinc-400 mt-0.5">{c.issuer}</div>
+                                        </div>
+                                        <Award size={16} className="text-zinc-500 group-hover:text-[#E5C07B] transition-colors ml-3 flex-shrink-0" />
                                     </div>
-                                    <Award size={16} className="text-zinc-500 group-hover:text-[#E5C07B] transition-colors ml-3 flex-shrink-0" />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="pt-4 border-t border-white/10">
+                            <div className="flex items-center gap-2 mb-3">
+                                <span className="w-1.5 h-1.5 bg-[#E5C07B] rounded-full animate-pulse" />
+                                <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest font-semibold">Languages</span>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
+                                    <div>
+                                        <div className="text-xs font-semibold text-white">English</div>
+                                        <div className="text-[10px] text-zinc-400 font-mono mt-0.5">Working proficiency</div>
+                                    </div>
+                                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
                                 </div>
-                            ))}
+                                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
+                                    <div>
+                                        <div className="text-xs font-semibold text-white">Japanese</div>
+                                        <div className="text-[10px] text-zinc-400 font-mono mt-0.5">Elementary (~N5)</div>
+                                    </div>
+                                    <span className="w-2 h-2 rounded-full bg-[#E5C07B] shadow-[0_0_6px_#E5C07B]" />
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

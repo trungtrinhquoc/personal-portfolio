@@ -4,19 +4,19 @@ import { motion } from 'framer-motion'
 
 const stacks = [
     {
-        title: 'AI, Computer Vision & Data Science',
-        desc: 'Deep learning detection models, image processing heuristics, and open-source AI ecosystems.',
-        tools: ['Python', 'PyTorch', 'YOLOv8 / YOLOv11', 'OpenCV', 'HSV/LAB Color Space', 'ROI Extraction', 'Hugging Face', 'ONNX / ONNX Runtime', 'NumPy']
+        title: 'AI, Computer Vision & Machine Learning',
+        desc: 'Industrial defect inspection, real-time edge inference optimization, and multimodal generative AI pipelines.',
+        tools: ['Computer Vision', 'Object Detection', 'YOLOv8', 'PyTorch', 'ONNX Runtime', 'OpenCV (SIFT + RANSAC)', 'RAG', 'Generative AI', 'FAISS', 'Hugging Face']
     },
     {
-        title: 'Backend & System Engineering',
-        desc: 'Async RESTful microservices, enterprise Java/C# backends, and relational/vector databases.',
-        tools: ['FastAPI', 'C# .NET 9', 'Java', 'Spring MVC', 'PostgreSQL (Supabase)', 'MySQL', 'SQL Server', 'Firebase', 'FAISS Vector DB', 'TypeScript', 'JavaScript']
+        title: 'Frameworks & Programming Languages',
+        desc: 'High-throughput async APIs, cross-platform desktop UI vision systems, and robust backend engineering.',
+        tools: ['Python', 'FastAPI', 'PySide6 (Qt6)', 'C# / .NET 9', 'Java', 'SQL', 'TypeScript', 'JavaScript']
     },
     {
-        title: 'DevOps, Cloud & AI Infrastructure',
-        desc: 'Cloud platforms, containerization, LLM APIs, and development environments.',
-        tools: ['AWS', 'Docker', 'Git / GitHub', 'OpenAI API (GPT-4o)', 'Vertex AI (Imagen)', 'Google Cloud TTS', 'Cursor', 'VSCode', 'IntelliJ IDEA', 'Vercel']
+        title: 'Databases, Cloud & DevOps Tools',
+        desc: 'Vector and relational database storage, containerization, LLM APIs, and developer toolchains.',
+        tools: ['PostgreSQL', 'Supabase', 'SQL Server', 'Firebase', 'Docker', 'Git / GitHub', 'GPT-4o', 'Vertex AI Imagen', 'Google Cloud TTS']
     }
 ]
 

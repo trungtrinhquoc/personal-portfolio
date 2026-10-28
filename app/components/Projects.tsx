@@ -2,35 +2,54 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Github, X, ArrowRight } from 'lucide-react'
+import { Github, X, ArrowRight, Eye, ZoomIn, Layers } from 'lucide-react'
+import Image from 'next/image'
 
-const projects = [
+interface ProjectItem {
+    title: string
+    category: string
+    desc: string
+    tags: string[]
+    metric: string
+    github?: string
+    details: string
+    image?: string
+    imageTitle?: string
+}
+
+const projects: ProjectItem[] = [
     {
-        title: 'RetailX - Multi-tenant Sales & HR Ecosystem',
+        title: 'FUOJT – OJT Management Ecosystem',
         category: 'AI Engineer',
-        desc: 'Web-based platform designed to help retail stores and SMEs manage sales, inventory, HR, and financial reports with AI-driven analytics.',
-        tags: ['ASP.NET Core MVC', 'SQL Server', 'OpenAI API', 'JavaScript/HTML/CSS'],
-        metric: 'AI Financial Analysis & Strategy',
-        github: 'https://github.com/trungtrinhquoc/RetailX',
-        details: 'RetailX is a web-based platform designed to help retail stores, chains, and SMEs manage sales, inventory, human resources, and financial reports.\n\nKey Highlights:\n- Developed an AI chatbot that helps users analyze revenue, costs, and profits, providing real-time insights and actionable recommendations.\n- Designed AI prompts to process financial data and generate tailored business strategies.'
+        desc: 'AI-assisted screening workflow and multimodal document-processing pipeline for automated student internship management.',
+        tags: ['C# .NET 9', 'PostgreSQL', 'Gemini API', 'TypeScript'],
+        metric: 'Candidate evaluation automation',
+        github: 'https://github.com/trungtrinhquoc',
+        details: 'Key Highlights:\n- Developed an AI-assisted candidate screening workflow combining format validation with Gemini-based candidate-job suitability assessment.\n- Built a multimodal document-processing pipeline for raw text, PDF, and Word documents; designed strict JSON output schemas for automated form completion and downstream recruitment workflows.',
+        image: '/fuojt-pipeline.png',
+        imageTitle: 'FUOJT – AI-Assisted OJT Management Pipeline'
     },
     {
         title: 'Mini RAG System',
         category: 'AI Engineer',
-        desc: "Built a complete RAG pipeline using FastAPI as the backend, OpenAI embeddings, and FAISS for fast nearest-neighbour retrieval.",
+        desc: 'Complete retrieval-augmented generation engine orchestrating PDF ingestion, vector search, and context-grounded synthesis.',
         tags: ['Python', 'FastAPI', 'OpenAI API', 'FAISS', 'Hugging Face'],
-        metric: 'Optimized chunk splitting & retrieval',
+        metric: 'Vector search top-k=5 retrieval',
         github: 'https://github.com/trungtrinhquoc',
-        details: 'Built a complete RAG pipeline using FastAPI as the backend, OpenAI embeddings to vectorize document chunks, FAISS for fast nearest-neighbour retrieval, and GPT-4o to synthesise final answers from retrieved context.\nPDF ingestion → text extraction → chunk splitting, Embedding generation via OpenAI text, Vector storage and similarity search with FAISS, Top-k = 5 chunks passed as context into GPT-4o prompt.'
+        details: 'Key Highlights:\n- Engineered a complete RAG pipeline via FastAPI, orchestrating PDF ingestion, text extraction, and chunk splitting.\n- Generated embeddings via OpenAI, stored in FAISS for fast similarity search.\n- Top-k = 5 chunks passed as context into GPT-4o prompt to synthesize accurate, context-grounded answers without hallucination.',
+        image: '/mini-rag-pipeline.png',
+        imageTitle: 'Mini RAG System for Document Question Answering – Pipeline'
     },
     {
-        title: 'FUOJT - OJT Management Ecosystem',
-        category: 'AI Engineer',
-        desc: "Built a Multimodal LLM pipeline that parses raw text and PDF/Word to extract structured fields and autofill job posting forms.",
-        tags: ['C# .NET 9', 'PostgreSQL', 'Gemini API', 'TypeScript', 'JavaScript/HTML/CSS'],
-        metric: 'Candidate evaluation automation',
-        github: 'https://github.com/trungtrinhquoc',
-        details: 'Combined basic format checks with Gemini API to automatically evaluate candidate suitability based on skills and job requirements. Built a Multimodal LLM pipeline that parses raw text and PDF/Word to extract structured fields and autofill job posting forms. Designed and optimized domain-specific prompts to guide LLMs in generating accurate candidate evaluations and strict JSON responses.'
+        title: 'RetailX – Multi-tenant Sales & HR Ecosystem',
+        category: 'AI & Fullstack Engineer',
+        desc: 'Web-based platform designed to help retail stores and SMEs manage sales, inventory, HR, and financial reports with AI analytics.',
+        tags: ['ASP.NET Core MVC', 'SQL Server', 'OpenAI API', 'JavaScript'],
+        metric: 'AI Financial Analysis & Strategy',
+        github: 'https://github.com/trungtrinhquoc/RetailX',
+        details: 'Key Highlights:\n- Developed an AI chatbot that helps users analyze revenue, costs, and profits, providing real-time insights and actionable recommendations.\n- Designed AI prompts to process financial data and generate tailored business strategies.',
+        image: '/retailx-pipeline.png',
+        imageTitle: 'RetailX – Multi-tenant Sales & HR Ecosystem Pipeline'
     }
 ]
 
@@ -52,7 +71,8 @@ const itemVariants = {
 }
 
 export default function Projects() {
-    const [selected, setSelected] = useState<typeof projects[0] | null>(null)
+    const [selected, setSelected] = useState<ProjectItem | null>(null)
+    const [enlargedImage, setEnlargedImage] = useState<string | null>(null)
 
     return (
         <section id="projects" className="relative py-20 overflow-hidden bg-transparent">
@@ -89,21 +109,38 @@ export default function Projects() {
                             className="p-6 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#E5C07B]/40 hover:bg-[#161616] cursor-pointer group flex flex-col justify-between transition-all duration-300 shadow-xl"
                         >
                             <div>
-                                <div className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest mb-2">{proj.category}</div>
-                                <h3 className="text-base font-semibold text-white mb-2.5 group-hover:text-[#E5C07B] transition-colors leading-snug">{proj.title}</h3>
-                                <p className="text-zinc-400 text-xs leading-relaxed mb-5 font-light">{proj.desc}</p>
+                                <div className="text-xs font-semibold text-[#E5C07B] tracking-wide mb-2">{proj.category}</div>
+                                <h3 className="text-base font-semibold text-white mb-2 group-hover:text-[#E5C07B] transition-colors leading-snug">{proj.title}</h3>
+                                <p className="text-zinc-400 text-xs leading-relaxed mb-4 font-light">{proj.desc}</p>
+
+                                {/* Project Image Preview (if available) */}
+                                {proj.image && (
+                                    <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/10 mb-4 bg-[#0a0a0a] group/img">
+                                        <Image
+                                            src={proj.image}
+                                            alt={proj.imageTitle || proj.title}
+                                            fill
+                                            className="object-contain p-1 group-hover/img:scale-105 transition-transform duration-300"
+                                        />
+                                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-colors flex items-center justify-center">
+                                            <span className="opacity-0 group-hover/img:opacity-100 transition-opacity inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E5C07B] text-[#0a0a0a] text-[10px] font-semibold shadow-md">
+                                                <ZoomIn size={12} /> View Pipeline
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             <div>
                                 <div className="flex flex-wrap gap-1.5 mb-5">
                                     {proj.tags.map(tag => (
-                                        <span key={tag} className="px-2 py-0.5 text-[10px] font-mono text-zinc-300 bg-white/[0.04] border border-white/10 rounded-md">
+                                        <span key={tag} className="px-2.5 py-1 text-[11px] font-medium text-zinc-300 bg-white/[0.04] border border-white/10 rounded-lg">
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
                                 <div className="flex items-center justify-between mt-auto pt-3 border-t border-white/10">
-                                    <span className="text-[11px] text-zinc-500 font-serif italic">{proj.metric}</span>
+                                    <span className="text-[11px] text-zinc-400 font-serif italic">{proj.metric}</span>
                                     <ArrowRight size={14} className="text-[#E5C07B] opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                                 </div>
                             </div>
@@ -115,7 +152,7 @@ export default function Projects() {
             {/* Modal */}
             <AnimatePresence>
                 {selected && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -127,7 +164,7 @@ export default function Projects() {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto p-6 sm:p-8 rounded-3xl bg-[#121212] border border-[#E5C07B]/30 shadow-2xl z-10"
+                            className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto p-6 sm:p-8 rounded-3xl bg-[#121212] border border-[#E5C07B]/30 shadow-2xl z-10"
                         >
                             <button
                                 onClick={() => setSelected(null)}
@@ -136,12 +173,29 @@ export default function Projects() {
                                 <X size={18} />
                             </button>
 
-                            <div className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-widest mb-1.5">{selected.category}</div>
-                            <h3 className="text-xl font-semibold text-white mb-3">{selected.title}</h3>
-                            <p className="text-zinc-300 text-xs leading-relaxed mb-5 font-light">{selected.desc}</p>
+                            <div className="text-xs font-semibold text-[#E5C07B] tracking-wide mb-1.5">{selected.category}</div>
+                            <h3 className="text-xl font-semibold text-white mb-2">{selected.title}</h3>
+                            <p className="text-zinc-300 text-xs leading-relaxed mb-4 font-light">{selected.desc}</p>
+
+                            {/* Modal Diagram Image */}
+                            {selected.image && (
+                                <div className="mb-5 rounded-2xl overflow-hidden border border-white/10 bg-[#0a0a0a] p-2">
+                                    <div className="text-[11px] font-semibold text-zinc-300 px-2 py-1 mb-1.5 flex items-center gap-1.5">
+                                        <Eye size={13} className="text-[#E5C07B]" />
+                                        <span>{selected.imageTitle || 'Architecture Pipeline'}</span>
+                                    </div>
+                                    <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden">
+                                        <img
+                                            src={selected.image}
+                                            alt={selected.imageTitle || selected.title}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-4 mb-5">
-                                <div className="text-[10px] text-[#E5C07B] font-mono uppercase tracking-widest mb-2 font-semibold">Technical Overview</div>
+                                <div className="text-xs text-[#E5C07B] font-semibold uppercase tracking-wider mb-2">Technical Overview</div>
                                 <div className="text-xs text-zinc-300 font-light leading-relaxed whitespace-pre-wrap">{selected.details}</div>
                             </div>
 

@@ -167,7 +167,7 @@ export default function Hero() {
                             </motion.button>
 
                             <motion.a
-                                href="/Resume_TrinhQuocTrung_AI Engineer.pdf"
+                                href="/Resume_TrinhQuocTrung_AI_Engineer.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ scale: 1.02 }}

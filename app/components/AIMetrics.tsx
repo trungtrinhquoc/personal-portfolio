@@ -1,13 +1,31 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Activity, Zap, Clock } from 'lucide-react'
+import { Activity, Zap, Clock, Cpu, Eye } from 'lucide-react'
 
 const metrics = [
     {
+        icon: Cpu,
+        category: 'EDGE AI INFERENCE',
+        title: 'CPU YOLOv8 Defect Detection',
+        before: 'PyTorch standard runtime',
+        after: '~12 ms/frame via ONNX',
+        percentage: '~12ms',
+        progress: 85,
+    },
+    {
+        icon: Eye,
+        category: 'INDUSTRIAL AUTOMATION',
+        title: 'Optical Cycle Triggering',
+        before: 'Hardware sensor dependency',
+        after: '100% software debounced trigger',
+        percentage: '100%',
+        progress: 100,
+    },
+    {
         icon: Activity,
         category: 'TOKEN OPTIMIZATION',
-        title: 'LLM token reduction',
+        title: 'LLM Token Reduction',
         before: '850 tokens',
         after: '480 tokens per request',
         percentage: '44%',
@@ -16,7 +34,7 @@ const metrics = [
     {
         icon: Clock,
         category: 'LATENCY ENGINEERING',
-        title: 'Generation latency drop',
+        title: 'Multimodal Generation Latency',
         before: '49s',
         after: '36s end-to-end',
         percentage: '27%',
